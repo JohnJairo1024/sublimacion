@@ -1,1 +1,39 @@
- 
+---
+// src/pages/products/[slug].astro
+import { getProductBySlug, getAllProductSlugs } from '../../lib/api';
+
+// Obtener el slug de los parámetros de la URL
+const { slug } = Astro.params;
+
+// Obtener los datos del producto basado en el slug
+const product = await getProductBySlug(slug);
+
+// Esta función se utiliza para generar las rutas dinámicas
+export async function getStaticPaths() {
+  // Obtener todos los slugs disponibles
+  const slugs = await getAllProductSlugs();
+  return slugs.map((slug) => ({
+    params: { slug },
+  }));
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{product ? product.name : 'Producto no encontrado'}</title>
+</head>
+<body>
+  {product ? (
+    <>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+      <p>Precio: ${product.price}</p>
+    </>
+  ) : (
+    <p>Producto no encontrado</p>
+  )}
+</body>
+</html>

@@ -1,1 +1,24 @@
- 
+---
+// src/components/layout/MainLayout.astro
+import NavigationBar from '../common/NavigationBar.astro';
+import '../../styles/global.css'; // Importa estilos globales
+
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Ecommerce</title>
+  <link rel="stylesheet" href="/styles/global.css">
+</head>
+<body>
+  <NavigationBar /> <!-- Barra de navegación común en todas las páginas -->
+  <main>
+    <slot /> <!-- Contenido específico de la página se renderiza aquí -->
+  </main>
+  <footer class="bg-light text-center py-4">
+    <p>&copy; 2024 Mi Ecommerce. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
